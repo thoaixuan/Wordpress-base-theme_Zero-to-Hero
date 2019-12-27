@@ -119,7 +119,20 @@ add_action( 'widgets_init', 'thoaixuanv2_widgets_init' );
 /**
  * Enqueue scripts and styles.
  */
+
+//* Do NOT include the opening php tag
+ 
+//* Load Font Awesome
+
+
 function thoaixuanv2_scripts() {
+	// add font-awesome , bootstrap
+	wp_enqueue_style( 'bootstrap-style', get_template_directory_uri(). '/css/bootstrap.min.css', array(), '4.4.1', 'all' );
+	
+	//wp_enqueue_style( 'font-awesome', get_template_directory_uri(). '/css/fontawesome.min.css', array(), '5.12.0', 'all' );
+	wp_enqueue_script( 'thoaixuan-js', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '4.4.1', true );
+	
+	//-------------------------------------
 	wp_enqueue_style( 'thoaixuanv2-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( 'thoaixuanv2-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
@@ -132,6 +145,23 @@ function thoaixuanv2_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'thoaixuanv2_scripts' );
 
+/*Add bootstrap */
+// neu function no khong ton tai. thi tao 1 function 
+if(!function_exists('ie_scripts')){
+	function ie_scripts(){
+	echo '<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->';
+    echo '<!-- WARNING: Respond.js doesn'.'t work if you view the page via file:// -->';
+	echo '<!--[if lt IE 9]>';
+    echo '  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>';
+    echo '<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>';
+    echo '<![endif]-->';
+}
+// them action them vao the head
+add_action('wp_head','ie_scripts');
+}
+
+
+/*------------------------------------------------------ */
 /**
  * Implement the Custom Header feature.
  */
